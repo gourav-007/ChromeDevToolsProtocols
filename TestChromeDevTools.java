@@ -92,4 +92,17 @@ public class TestChromeDevTools {
         driver.get("https://linkedin.com");
         System.out.println("Do not enable N/W : "+driver.getTitle());
     }
+    
+    //@Test
+    public void performanceMetrics(){
+        devTools.createSession();
+        devTools.send(Performance.enable(Optional.empty()));
+        List<Metric> metricList = devTools.send(Performance.getMetrics());
+
+        driver.get("https://google.com");
+
+        for (Metric metric : metricList){
+            System.out.println(metric.getName() + " = "+metric.getValue());
+        }
+    }
 }
